@@ -33,8 +33,12 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
+uri = os.getenv("DATABASE_URL")
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://")
+db = SQL(uri)
 
-db = SQL("sqlite:///data.db")
+
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = os.getenv('EMAIL')
@@ -701,4 +705,6 @@ def forgot():
                 return redirect("/login")
 
     else:
+        # playing with git hub
+        
         return render_template("forgot.html")
